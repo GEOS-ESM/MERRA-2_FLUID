@@ -1,0 +1,2 @@
+The codes in this directory are used to generate the extremes detection indices files that are distributed through GES DISC and posted as imagery on FLUID, in addtion to the code that is used to compute monthly wind speeds for FLUID. 
+Each code uses an input of "yyyy mm climoperiod", where climoperiod is currently 19902020. The codes are too hardwired at the moment for MERRA-2 and precomputed percentiles, which will hopefully be modified in future versions.
