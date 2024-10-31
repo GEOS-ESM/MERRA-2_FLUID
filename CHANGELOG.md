@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added `CODEOWNERS` file
+- Added AK and HI as regions for time series (N. Thomas 10/31/24)
 
 ### Changed
 
