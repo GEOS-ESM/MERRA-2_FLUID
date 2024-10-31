@@ -90,6 +90,24 @@ sw:
   lat2: 50
   lon1: -125
   lon2: -65
+ak:
+  region: 'Alaska'
+  regionshortname: 'ak'
+  regionnumber: 8
+  landonly: 1
+  lat1: 50
+  lat2: 80
+  lon1: -180
+  lon2: -120
+hi:
+  region: 'Hawaii'
+  regionshortname: 'hi'
+  regionnumber: 9
+  landonly: 1
+  lat1: 10
+  lat2: 30
+  lon1: -180
+  lon2: -140
 conus:
   region: 'CONUS'
   regionshortname: 'conus'
