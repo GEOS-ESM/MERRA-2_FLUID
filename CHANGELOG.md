@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Clean up of initial setup by A. Collow
+- Widened plots so that y-axis is not cut off with multiple decimal points (N. Thomas 11/4/24)
 
 ### Fixed
 
