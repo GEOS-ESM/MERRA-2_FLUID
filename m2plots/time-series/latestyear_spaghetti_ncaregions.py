@@ -259,6 +259,7 @@ ax.legend([str(endyear),"Climo Mean (1980-2023)","15th-85th Percentile (1980-202
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
+plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
 #plt.show()
 
 month = str(endmonth + 100)[1:]
