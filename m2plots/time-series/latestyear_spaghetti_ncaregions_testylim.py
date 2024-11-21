@@ -90,6 +90,24 @@ sw:
   lat2: 50
   lon1: -125
   lon2: -65
+ak:
+  region: 'Alaska'
+  regionshortname: 'ak'
+  regionnumber: 8
+  landonly: 1
+  lat1: 50
+  lat2: 80
+  lon1: -180
+  lon2: -120
+hi:
+  region: 'Hawaii'
+  regionshortname: 'hi'
+  regionnumber: 9
+  landonly: 1
+  lat1: 10
+  lat2: 30
+  lon1: -180
+  lon2: -140
 conus:
   region: 'CONUS'
   regionshortname: 'conus'
@@ -264,7 +282,7 @@ ax.legend([str(endyear),"Climo Mean (1980-2023)","15th-85th Percentile (1980-202
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
-
+plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
 
 #plt.show()
 
