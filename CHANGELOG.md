@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed CDD constant 0 issue in computeRindices_seas.py (N. Thomas 11/22/24)
+
 ### Removed
 
 - Codes that are not needed for the monthly workflow.
