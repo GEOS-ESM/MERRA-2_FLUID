@@ -215,7 +215,7 @@ rx1d_var.units = 'mm/day'
 rx1d_var.long_name='maximum one-day precipitation amount'
 
 #Compute consecutive wet days
-wetdays=prectot+0
+wetdays=prectot.copy()
 wetdays[wetdays<1]=np.nan
 wetdays[wetdays>=1]=1
 cwd=np.empty([361,576])
