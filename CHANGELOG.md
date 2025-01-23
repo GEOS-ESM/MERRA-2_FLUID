@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Clean up of initial setup by A. Collow
 - Widened plots so that y-axis is not cut off with multiple decimal points (N. Thomas 11/4/24)
+- The climatology period was updated to 1980-2024 for the annual cycle time series plots (A. Collow 1/23/25)
 
 ### Fixed
 
