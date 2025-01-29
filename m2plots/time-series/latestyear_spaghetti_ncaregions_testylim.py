@@ -242,7 +242,7 @@ subset_weighted=subset.weighted(weights)
 weighted_mean = var[yamlkey_var]['unitconversion']*subset_weighted.mean(("lon", "lat"))
 
 ####Compute Stats####
-stats_subset=weighted_mean.sel(time=slice("1980-01-01","2023-12-01"))
+stats_subset=weighted_mean.sel(time=slice("1980-01-01","2024-12-01"))
 climo=stats_subset.groupby("time.month").mean()
 minimum=stats_subset.groupby("time.month").min()
 maximum=stats_subset.groupby("time.month").max()
@@ -265,7 +265,7 @@ if var[yamlkey_var]['fixylim'] is None:
 else:
         plt.ylim(top=var[yamlkey_var]['fixylim']+max(maximum))
 #ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"])
-ax.legend([str(endyear),"Climo Mean (1980-2023)","15th-85th Percentile (1980-2023)","Min/Max (1980-2023)"])
+ax.legend([str(endyear),"Climo Mean (1980-2024)","15th-85th Percentile (1980-2024)","Min/Max (1980-2024)"])
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
