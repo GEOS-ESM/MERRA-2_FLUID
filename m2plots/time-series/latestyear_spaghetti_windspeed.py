@@ -124,7 +124,7 @@ global:
   lat1: -90
   lat2: 90
   lon1: -180
-  lon2: -179.375
+  lon2: 179.375
 globalland:
   region: 'Global Land'
   regionshortname: 'globalland'
@@ -133,7 +133,7 @@ globalland:
   lat1: -90
   lat2: 90
   lon1: -180
-  lon2: -179.375
+  lon2: 179.375
 
 
 """
