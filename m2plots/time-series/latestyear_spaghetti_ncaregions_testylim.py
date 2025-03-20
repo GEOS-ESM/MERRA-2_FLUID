@@ -149,7 +149,7 @@ t2m:
 
 prec:
   variablename: 'PRECTOT'
-  varlongname: 'Precipitation'
+  varlongname: 'Modeled Precipitation'
   units: 'mm/day'
   unitconversion: 86400
   collection: 'tavgM_2d_flx_Nx'
