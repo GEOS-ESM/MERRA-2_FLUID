@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `CODEOWNERS` file
 - Added AK and HI as regions for time series (N. Thomas 10/31/24)
+- Added PRECTOTCORR as a variable for the annual cycle plots (N. Thomas 3/20/25)
 
 ### Changed
 
 - Clean up of initial setup by A. Collow
 - Widened plots so that y-axis is not cut off with multiple decimal points (N. Thomas 11/4/24)
+- Changed long name for precip in annual cycle plots (to model-generated precipitation) (N. Thomas 3/20/25)
 
 ### Fixed
 
