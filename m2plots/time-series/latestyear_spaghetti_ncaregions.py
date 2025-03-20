@@ -154,6 +154,13 @@ prec:
   unitconversion: 86400
   collection: 'tavgM_2d_flx_Nx'
 
+prectotcorr:
+  variablename: 'PRECTOTCORR'
+  varlongname: 'Bias Corrected Precipitation'
+  units: 'mm/day'
+  unitconversion: 86400
+  collection: 'tavgM_2d_flx_Nx'
+
 snow:
   variablename: 'PRECSNO'
   varlongname: 'Snowfall'
