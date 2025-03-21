@@ -145,7 +145,7 @@ t2m:
   units: 'K'
   unitconversion: 1
   collection: 'tavgM_2d_slv_Nx'
-  fixylim: None
+  fixylim: 0
 
 prec:
   variablename: 'PRECTOT'
@@ -169,7 +169,7 @@ snow:
   units: 'mm/day'
   unitconversion: 86400
   collection: 'tavgM_2d_flx_Nx'
-  fixylim: None
+  fixylim: 0
 
 aod:
   variablename: 'TOTEXTTAU'
@@ -185,7 +185,7 @@ pbl:
   units: 'km'
   unitconversion: 0.001
   collection: 'tavgM_2d_flx_Nx'
-  fixylim: None
+  fixylim: 0
 
 swgdn:
   variablename: 'SWGDN'
@@ -193,7 +193,7 @@ swgdn:
   units: '$\mathregular{W m^{-2}}$'
   unitconversion: 1
   collection: 'tavgM_2d_rad_Nx' 
-  fixylim: None
+  fixylim: 0
 
 soil:
   variablename: 'GWETROOT'
@@ -201,7 +201,7 @@ soil:
   units: '1'
   unitconversion: 1
   collection: 'tavgM_2d_lnd_Nx'
-  fixylim: None
+  fixylim: 0
 
 cloud:
   variablename: 'CLDTOT'
@@ -209,7 +209,7 @@ cloud:
   units: '%'
   unitconversion: 100
   collection: 'tavgM_2d_rad_Nx'
-  fixylim: None
+  fixylim: 0
 
 
 """
@@ -268,7 +268,7 @@ line3=ax.fill_between(xaxis,pctl15,pctl85,color='lightgray',label="15th-85th Per
 ax.plot(xaxis,minimum,'k',linewidth=0.5)
 line4=ax.plot(xaxis,maximum,'k',linewidth=0.5,label="Min/Max")
 plt.ylabel(var[yamlkey_var]['varlongname'] + ' (' + var[yamlkey_var]['units'] + ')', fontsize=14)
-if var[yamlkey_var]['fixylim'] is None:
+if var[yamlkey_var]['fixylim']==0:
         pass
 else:
         plt.ylim(top=var[yamlkey_var]['fixylim']+max(maximum))
