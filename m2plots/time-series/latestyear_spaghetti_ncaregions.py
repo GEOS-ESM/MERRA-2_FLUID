@@ -111,7 +111,7 @@ hi:
 conus:
   region: 'CONUS'
   regionshortname: 'conus'
-  regionnumber: 0
+  regionnumber: 10
   landonly: 1
   lat1: 24
   lat2: 50
@@ -227,11 +227,11 @@ if region[yamlkey_reg]['landonly']==1:
         land_subset=land.sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2)).squeeze(['time'],drop=True)
         subset=subset.where(land_subset>0.3)
 	
-if region[yamlkey_reg]['regionnumber']>0 & region[yamlkey_reg]['regionnumber']<8:
+if region[yamlkey_reg]['regionnumber']>0 & region[yamlkey_reg]['regionnumber']<10:
         ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
         subset=subset.where(nca_subset==region[yamlkey_reg]['regionnumber'])
-elif region[yamlkey_reg]['regionnumber']==8:
+elif region[yamlkey_reg]['regionnumber']==10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
         print(max(nca_subset))
         subset=subset.where(nca_subset>0 & nca_subset<8)

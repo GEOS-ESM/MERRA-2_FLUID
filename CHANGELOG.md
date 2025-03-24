@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed CDD constant 0 issue in computeRindices_seas.py (N. Thomas 11/22/24)
 - Removed minus sign for lon2 in the yaml section of the global and global land plots
 - Fixed bug so that all annual cycle plot variables can be run with latestyear_spaghetti_ncaregions_testylim.py (N. Thomas 3/21/25)
+- Fixed issue with region numbers in annual cycle plot codes (N. Thomas 3/24/25)
 
 ### Removed
 
