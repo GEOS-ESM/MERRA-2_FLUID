@@ -191,20 +191,19 @@ lat2=region[yamlkey_reg]['lat2']
 
 ####Subset for Selected Region####
 subset=DS[var[yamlkey_var]['variablename']].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
+ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
 if region[yamlkey_reg]['landonly']==1:
         m2constants=xr.open_dataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/MERRA2.const_2d_asm_Nx.00000000.nc4')
         land=m2constants.FRLAND+m2constants.FRLANDICE
         land_subset=land.sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2)).squeeze(['time'],drop=True)
         subset=subset.where(land_subset>0.3)
 	
-if region[yamlkey_reg]['regionnumber']>0 & region[yamlkey_reg]['regionnumber']<10:
-        ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
+if region[yamlkey_reg]['regionnumber']>0 and region[yamlkey_reg]['regionnumber']<10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
         subset=subset.where(nca_subset==region[yamlkey_reg]['regionnumber'])
 elif region[yamlkey_reg]['regionnumber']==10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
-        print(max(nca_subset))
-        subset=subset.where(nca_subset>0 & nca_subset<8)
+        subset=subset.where(nca_subset>0)
 
 ####Get area average####
 weights=np.cos(np.deg2rad(subset.lat))
