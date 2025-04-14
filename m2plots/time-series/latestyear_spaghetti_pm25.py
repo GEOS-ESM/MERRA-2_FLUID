@@ -107,10 +107,10 @@ line4=ax.plot(xaxis,maximum,'k',linewidth=0.5,label="Min/Max")
 plt.ylabel(var[yamlkey_var]['varlongname'] + ' (' + var[yamlkey_var]['units'] + ')', fontsize=14)
 #ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"])
 print(region[yamlkey_reg]['regionshortname'])
-if region[yamlkey_reg]['regionshortname']=='nwus' or region[yamlkey_reg]['regionshortname']=='ngpus' or region[yamlkey_reg]['regionshortname']=='seus' or or region[yamlkey_reg]['regionshortname']=='sw':
-        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper left')
-else:
-        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper right')   
+#if region[yamlkey_reg]['regionshortname']=='nwus' or region[yamlkey_reg]['regionshortname']=='ngpus' or region[yamlkey_reg]['regionshortname']=='seus' or or region[yamlkey_reg]['regionshortname']=='sw':
+#        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper left')
+#else:
+ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper right')   
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
