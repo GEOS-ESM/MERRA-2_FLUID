@@ -112,7 +112,7 @@ line4=ax.plot(xaxis,maximum,'k',linewidth=0.5,label="Min/Max")
 plt.ylabel(var[yamlkey_var]['varlongname'] + ' (' + var[yamlkey_var]['units'] + ')', fontsize=14)
 #ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"])
 print(region[yamlkey_reg]['regionshortname'])
-if region[yamlkey_reg]['regionshortname']=='nwus' or region[yamlkey_reg]['regionshortname']=='ngpus' or region[yamlkey_reg]['regionshortname']=='seus' or or region[yamlkey_reg]['regionshortname']=='sw':
+if region[yamlkey_reg]["regionshortname"] in ("nwus", "ngpus", "seus", "sw"):
         ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper left')
 else:
         ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper right')   
