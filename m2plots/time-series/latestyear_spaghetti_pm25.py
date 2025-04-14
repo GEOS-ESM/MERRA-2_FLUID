@@ -51,7 +51,12 @@ lat1=region[yamlkey_reg]['lat1']
 lat2=region[yamlkey_reg]['lat2']
 
 ####Subset for Selected Region####
-subset=DS['DUSMASS25'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['SSSMASS25'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['OCSMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['BCSMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+(DS['SO4SMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))*132.14/96.06)
+ds_slice = DS.sel(lon=slice(lon1, lon2), lat=slice(lat1, lat2))
+subset=(ds_slice['DUSMASS25'] +
+        ds_slice['SSSMASS25'] +
+        ds_slice['OCSMASS'] +
+        ds_slice['BCSMASS'] +
+        (ds_slice['SO4SMASS'] * 132.14/96.06))
 ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
 if region[yamlkey_reg]['landonly']==1:
         m2constants=xr.open_dataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/MERRA2.const_2d_asm_Nx.00000000.nc4')
