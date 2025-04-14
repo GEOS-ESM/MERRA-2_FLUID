@@ -51,7 +51,12 @@ lat1=region[yamlkey_reg]['lat1']
 lat2=region[yamlkey_reg]['lat2']
 
 ####Subset for Selected Region####
-subset=DS['DUSMASS25'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['SSSMASS25'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['OCSMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+DS['BCSMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))+(DS['SO4SMASS'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))*132.14/96.06)
+ds_slice = DS.sel(lon=slice(lon1, lon2), lat=slice(lat1, lat2))
+subset=(ds_slice['DUSMASS25'] +
+        ds_slice['SSSMASS25'] +
+        ds_slice['OCSMASS'] +
+        ds_slice['BCSMASS'] +
+        (ds_slice['SO4SMASS'] * 132.14/96.06))
 ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
 if region[yamlkey_reg]['landonly']==1:
         m2constants=xr.open_dataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/MERRA2.const_2d_asm_Nx.00000000.nc4')
@@ -107,17 +112,15 @@ line4=ax.plot(xaxis,maximum,'k',linewidth=0.5,label="Min/Max")
 plt.ylabel(var[yamlkey_var]['varlongname'] + ' (' + var[yamlkey_var]['units'] + ')', fontsize=14)
 #ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"])
 print(region[yamlkey_reg]['regionshortname'])
-#if region[yamlkey_reg]['regionshortname']=='nwus' or region[yamlkey_reg]['regionshortname']=='ngpus' or region[yamlkey_reg]['regionshortname']=='seus' or or region[yamlkey_reg]['regionshortname']=='sw':
-#        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper left')
-#else:
-ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper right')   
+if region[yamlkey_reg]["regionshortname"] in ("nwus", "ngpus", "seus", "sw","conus"):
+        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper left')
+else:
+        ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"],loc='upper right')   
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
-if var[yamlkey_var]['fixylim']==0:
-        pass
-else:
+if var[yamlkey_var]["fixylim"] != 0:
         plt.ylim(top=var[yamlkey_var]['fixylim']+max(maximum))
 plt.text(-0.12,-0.12,'Climate Stats = 2000-2024',transform=ax.transAxes)        
 
@@ -131,9 +134,11 @@ ax_image = fig.add_axes([image_x, image_y, image_width, image_height])
 ax_image.imshow(image)
 ax_image.set_xticks([])
 ax_image.set_yticks([])
-plt.text(0.95,1.05,'v1.1',transform=ax.transAxes)
+with open("VERSION", "r") as f:
+        VERSION = f.read().strip()  # strip will remove leading and trailing whitespace
+plt.text(0.95,1.05,VERSION,transform=ax.transAxes)
 
-plt.show()
+#plt.show()
 
 month = str(endmonth + 100)[1:]
 odir = '/discover/nobackup/acollow/MERRA-2_FLUID/m2plots/time-series/'

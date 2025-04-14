@@ -177,7 +177,9 @@ ax_image = fig.add_axes([image_x, image_y, image_width, image_height])
 ax_image.imshow(image)
 ax_image.set_xticks([])
 ax_image.set_yticks([])
-plt.text(0.95,1.05,'v1.1',transform=ax.transAxes)
+with open("VERSION", "r") as f:
+        VERSION = f.read().strip()  # strip will remove leading and trailing whitespace
+plt.text(0.95,1.05,VERSION,transform=ax.transAxes)
 
 #plt.show()
 
