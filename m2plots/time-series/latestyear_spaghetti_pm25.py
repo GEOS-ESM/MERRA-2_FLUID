@@ -120,9 +120,7 @@ plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun',
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
-if var[yamlkey_var]['fixylim']==0:
-        pass
-else:
+if var[yamlkey_var]["fixylim"] != 0:
         plt.ylim(top=var[yamlkey_var]['fixylim']+max(maximum))
 plt.text(-0.12,-0.12,'Climate Stats = 2000-2024',transform=ax.transAxes)        
 
