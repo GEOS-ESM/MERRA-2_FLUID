@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added PRECTOTCORR as variable for annual cycle plots (N. Thomas 3/21/25)
 - Added Dry PM2.5 as a variable for annual cycle plots (A. Collow 3/28/25)
 - Added GMAO logo and version number to annual cycle plots (A. Collow 3/28/25)
--Added region.yaml to be used with all versions of annual cylce plots
+- Added region.yaml to be used with all versions of annual cylce plots
 
 ### Changed
 

@@ -21,7 +21,7 @@ endyear=int(sys.argv[3])
 endmonth=int(sys.argv[4])
 
 ####INPUT parameters####
-#yamlkey_var='t2m'
+#yamlkey_var='pm25'
 #yamlkey_reg='ne'
 #endyear=2023
 #endmonth=12
