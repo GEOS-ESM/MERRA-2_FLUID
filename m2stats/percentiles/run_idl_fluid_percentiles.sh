@@ -44,7 +44,7 @@ export FY=$fy
 export LY=$ly
 
 # Run IDL with command-line arguments
-idl -e "fluid_git"
+idl -e "percentilesforFLUID"
 # ============================================= END OF NO CHANGES HERE ======================================
 # ===========================================================================================================
 
