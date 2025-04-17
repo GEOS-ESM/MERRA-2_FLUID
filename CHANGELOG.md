@@ -12,13 +12,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `CODEOWNERS` file
 - Added AK and HI as regions for time series (N. Thomas 10/31/24)
 - Added a stream option to be able to switch between MERRA2_all and MERRA2_400 (A. Collow 11/21/24)
+- Added PRECTOTCORR as variable for annual cycle plots (N. Thomas 3/21/25)
 
 ### Changed
 
 - Clean up of initial setup by A. Collow
 - Widened plots so that y-axis is not cut off with multiple decimal points (N. Thomas 11/4/24)
+- The climatology period was updated to 1980-2024 for the annual cycle time series plots (A. Collow 1/23/25)
 
 ### Fixed
+
+- Fixed CDD constant 0 issue in computeRindices_seas.py (N. Thomas 11/22/24)
+- Removed minus sign for lon2 in the yaml section of the global and global land plots
+- Fixed bug so that all annual cycle plot variables can be run with latestyear_spaghetti_ncaregions_testylim.py (N. Thomas 3/21/25)
+- Fixed issue with region numbers in annual cycle plot codes (N. Thomas 3/24/25)
 
 ### Removed
 

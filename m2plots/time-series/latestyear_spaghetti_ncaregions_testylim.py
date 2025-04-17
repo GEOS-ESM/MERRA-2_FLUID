@@ -111,7 +111,7 @@ hi:
 conus:
   region: 'CONUS'
   regionshortname: 'conus'
-  regionnumber: 0
+  regionnumber: 10
   landonly: 1
   lat1: 24
   lat2: 50
@@ -125,7 +125,7 @@ global:
   lat1: -90
   lat2: 90
   lon1: -180
-  lon2: -179.375
+  lon2: 179.375
 globalland:
   region: 'Global Land'
   regionshortname: 'globalland'
@@ -134,7 +134,7 @@ globalland:
   lat1: -90
   lat2: 90
   lon1: -180
-  lon2: -179.375
+  lon2: 179.375
 
 
 """
@@ -146,11 +146,19 @@ t2m:
   units: 'K'
   unitconversion: 1
   collection: 'tavgM_2d_slv_Nx'
-  fixylim: None
+  fixylim: 0
 
 prec:
   variablename: 'PRECTOT'
-  varlongname: 'Precipitation'
+  varlongname: 'Modeled Precipitation'
+  units: 'mm/day'
+  unitconversion: 86400
+  collection: 'tavgM_2d_flx_Nx'
+  fixylim: 2
+
+prectotcorr:
+  variablename: 'PRECTOTCORR'
+  varlongname: 'Bias Corrected Precipitation'
   units: 'mm/day'
   unitconversion: 86400
   collection: 'tavgM_2d_flx_Nx'
@@ -162,7 +170,7 @@ snow:
   units: 'mm/day'
   unitconversion: 86400
   collection: 'tavgM_2d_flx_Nx'
-  fixylim: None
+  fixylim: 0
 
 aod:
   variablename: 'TOTEXTTAU'
@@ -178,7 +186,7 @@ pbl:
   units: 'km'
   unitconversion: 0.001
   collection: 'tavgM_2d_flx_Nx'
-  fixylim: None
+  fixylim: 0
 
 swgdn:
   variablename: 'SWGDN'
@@ -186,7 +194,7 @@ swgdn:
   units: '$\mathregular{W m^{-2}}$'
   unitconversion: 1
   collection: 'tavgM_2d_rad_Nx' 
-  fixylim: None
+  fixylim: 0
 
 soil:
   variablename: 'GWETROOT'
@@ -194,7 +202,7 @@ soil:
   units: '1'
   unitconversion: 1
   collection: 'tavgM_2d_lnd_Nx'
-  fixylim: None
+  fixylim: 0
 
 cloud:
   variablename: 'CLDTOT'
@@ -202,7 +210,7 @@ cloud:
   units: '%'
   unitconversion: 100
   collection: 'tavgM_2d_rad_Nx'
-  fixylim: None
+  fixylim: 0
 
 
 """
@@ -234,20 +242,19 @@ lat2=region[yamlkey_reg]['lat2']
 
 ####Subset for Selected Region####
 subset=DS[var[yamlkey_var]['variablename']].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
+ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
 if region[yamlkey_reg]['landonly']==1:
         m2constants=xr.open_dataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/MERRA2.const_2d_asm_Nx.00000000.nc4')
         land=m2constants.FRLAND+m2constants.FRLANDICE
         land_subset=land.sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2)).squeeze(['time'],drop=True)
         subset=subset.where(land_subset>0.3)
 	
-if region[yamlkey_reg]['regionnumber']>0 & region[yamlkey_reg]['regionnumber']<8:
-        ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
+if region[yamlkey_reg]['regionnumber']>0 and region[yamlkey_reg]['regionnumber']<10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
         subset=subset.where(nca_subset==region[yamlkey_reg]['regionnumber'])
-elif region[yamlkey_reg]['regionnumber']==8:
+elif region[yamlkey_reg]['regionnumber']==10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
-        print(max(nca_subset))
-        subset=subset.where(nca_subset>0 & nca_subset<8)
+        subset=subset.where(nca_subset>0)
 
 ####Get area average####
 weights=np.cos(np.deg2rad(subset.lat))
@@ -255,7 +262,7 @@ subset_weighted=subset.weighted(weights)
 weighted_mean = var[yamlkey_var]['unitconversion']*subset_weighted.mean(("lon", "lat"))
 
 ####Compute Stats####
-stats_subset=weighted_mean.sel(time=slice("1980-01-01","2023-12-01"))
+stats_subset=weighted_mean.sel(time=slice("1980-01-01","2024-12-01"))
 climo=stats_subset.groupby("time.month").mean()
 minimum=stats_subset.groupby("time.month").min()
 maximum=stats_subset.groupby("time.month").max()
@@ -273,12 +280,12 @@ line3=ax.fill_between(xaxis,pctl15,pctl85,color='lightgray',label="15th-85th Per
 ax.plot(xaxis,minimum,'k',linewidth=0.5)
 line4=ax.plot(xaxis,maximum,'k',linewidth=0.5,label="Min/Max")
 plt.ylabel(var[yamlkey_var]['varlongname'] + ' (' + var[yamlkey_var]['units'] + ')', fontsize=14)
-if var[yamlkey_var]['fixylim'] is None:
+if var[yamlkey_var]['fixylim']==0:
         pass
 else:
         plt.ylim(top=var[yamlkey_var]['fixylim']+max(maximum))
 #ax.legend([str(endyear),"Climo Mean","15th-85th Percentile","Min/Max"])
-ax.legend([str(endyear),"Climo Mean (1980-2023)","15th-85th Percentile (1980-2023)","Min/Max (1980-2023)"])
+ax.legend([str(endyear),"Climo Mean (1980-2024)","15th-85th Percentile (1980-2024)","Min/Max (1980-2024)"])
 plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
