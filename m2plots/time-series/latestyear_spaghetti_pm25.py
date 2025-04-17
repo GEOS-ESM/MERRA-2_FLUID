@@ -13,12 +13,13 @@ warnings.filterwarnings('ignore')
 import sys
 from netCDF4 import Dataset
 
-#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, and 4) the ending month of the year to be highlighted. 
-#Example usage: ./latestyear_spaghetti_pm25.py pm25 ne 2023 12
+#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, 4) the ending month of the year to be highlighted, and 5) ops vs retro. 
+#Example usage: ./latestyear_spaghetti_pm25.py pm25 ne 2023 12 retro
 yamlkey_var=sys.argv[1]
 yamlkey_reg=sys.argv[2]
 endyear=int(sys.argv[3])
 endmonth=int(sys.argv[4])
+yamlkey_stream=sys.argv[5]
 
 ####INPUT parameters####
 #yamlkey_var='pm25'
@@ -36,15 +37,26 @@ pm25:
   fixylim: 0
 
 """
+stream_map= """
+ops:
+  streamname: 'MERRA2_400'
+  model: 'MERRA2_400'
+  outputpath: '/discover/nobackup/dao_ops/m2plots/'
+retro:
+  streamname: 'MERRA2_all'
+  model: 'MERRA2'
+  outputpath: '/discover/nobackup/projects/gmao/nca/indices/timeseries/'
+"""
 
 ####Import yaml info####
 var = yaml.safe_load(variable_map)
+stream = yaml.safe_load(stream_map)
 with open('regionmap.yaml') as f:
         region = yaml.safe_load(f)
 
 
 ####LOAD DATA####
-DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/Y*/M*/MERRA2.tavgM_2d_aer_Nx.*.nc4')
+DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/' + stream[yamlkey_stream]['streamname']  + '/Y*/M*/' + stream[yamlkey_stream]['model'] + '.tavgM_2d_aer_Nx.*.nc4')
 lon1=region[yamlkey_reg]['lon1']
 lon2=region[yamlkey_reg]['lon2']
 lat1=region[yamlkey_reg]['lat1']
@@ -141,7 +153,7 @@ plt.text(0.95,1.05,VERSION,transform=ax.transAxes)
 #plt.show()
 
 month = str(endmonth + 100)[1:]
-odir = '/discover/nobackup/acollow/MERRA-2_FLUID/m2plots/time-series/'
+odir = stream[yamlkey_stream]['outputpath'] + 'Y{}/M{}'.format(endyear, month)
 oname = '%s_%s_%4d.png'%(var[yamlkey_var]['variablename'],region[yamlkey_reg]['regionshortname'],endyear)
 opathname = os.path.join(odir, oname)
 os.makedirs(odir, mode = 0o755, exist_ok=True)
