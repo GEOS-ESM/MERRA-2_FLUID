@@ -12,12 +12,13 @@ import warnings
 warnings.filterwarnings('ignore')
 import sys
 
-#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, and 4) the ending month of the year to be highlighted. 
-#Example usage: ./latestyear_spaghetti_ncaregions.py t2m ne 2023 12
+#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, 4) the ending month of the year to be highlighted, and 5) the stream to be used (NRT ops vs retro). 
+#Example usage: ./latestyear_spaghetti_ncaregions.py t2m ne 2023 12 ops
 yamlkey_var=sys.argv[1]
 yamlkey_reg=sys.argv[2]
 endyear=int(sys.argv[3])
 endmonth=int(sys.argv[4])
+yamlkey_stream=sys.argv[5]
 
 ####INPUT parameters####
 #yamlkey_var='t2m'
@@ -206,13 +207,25 @@ cloud:
 
 """
 
+stream_map= """
+ops:
+  streamname: 'MERRA2_400'
+  model: 'MERRA2_400'
+  outputpath: '/discover/nobackup/dao_ops/m2plots/'
+retro:
+  streamname: 'MERRA2_all'
+  model: 'MERRA2'
+  outputpath: '/discover/nobackup/projects/gmao/nca/indices/timeseries/'
+"""
+
+
 ####Import yaml info####
 var = yaml.safe_load(variable_map)
 region = yaml.safe_load(NCA_map)
-
+stream = yaml.safe_load(stream_map)
 
 ####LOAD DATA####
-DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/Y*/M*/MERRA2.' + var[yamlkey_var]['collection'] + '.*.nc4')
+DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/' + stream[yamlkey_stream]['streamname'] + '/Y*/M*/' + stream[yamlkey_stream]['model'] + '.' + var[yamlkey_var]['collection'] + '.*.nc4')
 lon1=region[yamlkey_reg]['lon1']
 lon2=region[yamlkey_reg]['lon2']
 lat1=region[yamlkey_reg]['lat1']
@@ -268,6 +281,6 @@ plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
 #plt.show()
 
 month = str(endmonth + 100)[1:]
-odir = '/discover/nobackup/dao_ops/m2plots/Y{}/M{}'.format(endyear, month)
+odir = stream[yamlkey_stream]['outputpath'] + 'Y{}/M{}'.format(endyear, month)
 os.makedirs(odir, mode = 0o755, exist_ok=True)
 fig.savefig(odir+'/'+'%s_%s_%4d.png'%(var[yamlkey_var]['variablename'],region[yamlkey_reg]['regionshortname'],endyear))

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `CODEOWNERS` file
 - Added AK and HI as regions for time series (N. Thomas 10/31/24)
+- Added a stream option to be able to switch between MERRA2_all and MERRA2_400 (A. Collow 11/21/24)
 - Added PRECTOTCORR as variable for annual cycle plots (N. Thomas 3/21/25)
 
 ### Changed
