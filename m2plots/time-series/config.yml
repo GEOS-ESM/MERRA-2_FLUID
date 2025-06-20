@@ -1,0 +1,204 @@
+logo: /home/dao_ops/cylc8-workflows/m2plots/GMAO-logo-blue-no-text.png
+
+region_map:
+  ne:
+    region: 'Northeast United States'
+    regionshortname: 'neus'
+    regionnumber: 1
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  se:
+    region: 'Southeast United States'
+    regionshortname: 'seus'
+    regionnumber: 2
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  mw:
+    region: 'Midwest United States'
+    regionshortname: 'mwus'
+    regionnumber: 3
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  ngp:
+    region: 'Northern Great Plains'
+    regionshortname: 'ngpus'
+    regionnumber: 4
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  sgp:
+    region: 'Southern Great Plains'
+    regionshortname: 'sgpus'
+    regionnumber: 5
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  nw:
+    region: 'Northwest United States'
+    regionshortname: 'nwus'
+    regionnumber: 6
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  sw:
+    region: 'Southwest United States'
+    regionshortname: 'swus'
+    regionnumber: 7
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  ak:
+    region: 'Alaska'
+    regionshortname: 'ak'
+    regionnumber: 8
+    landonly: 1
+    lat1: 50
+    lat2: 80
+    lon1: -180
+    lon2: -120
+  hi:
+    region: 'Hawaii'
+    regionshortname: 'hi'
+    regionnumber: 9
+    landonly: 1
+    lat1: 10
+    lat2: 30
+    lon1: -180
+    lon2: -140
+  conus:
+    region: 'CONUS'
+    regionshortname: 'conus'
+    regionnumber: 10
+    landonly: 1
+    lat1: 24
+    lat2: 50
+    lon1: -125
+    lon2: -65
+  global:
+    region: 'Global'
+    regionshortname: 'global'
+    regionnumber: 0
+    landonly: 0
+    lat1: -90
+    lat2: 90
+    lon1: -180
+    lon2: 179.375
+  globalland:
+    region: 'Global Land'
+    regionshortname: 'globalland'
+    regionnumber: 0
+    landonly: 1
+    lat1: -90
+    lat2: 90
+    lon1: -180
+    lon2: 179.375
+
+variable_map:
+  t2m:
+    variablename: 'T2M'
+    varlongname: '2 m Temperature'
+    units: 'K'
+    unitconversion: 1
+    collection: 'tavgM_2d_slv_Nx'
+  
+  prec:
+    variablename: 'PRECTOT'
+    varlongname: 'Modeled Precipitation'
+    units: 'mm/day'
+    unitconversion: 86400
+    collection: 'tavgM_2d_flx_Nx'
+  
+  prectotcorr:
+    variablename: 'PRECTOTCORR'
+    varlongname: 'Bias Corrected Precipitation'
+    units: 'mm/day'
+    unitconversion: 86400
+    collection: 'tavgM_2d_flx_Nx'
+  
+  snow:
+    variablename: 'PRECSNO'
+    varlongname: 'Snowfall'
+    units: 'mm/day'
+    unitconversion: 86400
+    collection: 'tavgM_2d_flx_Nx'
+  
+  aod:
+    variablename: 'TOTEXTTAU'
+    varlongname: 'Aerosol Optical Depth'
+    units: '1'
+    unitconversion: 1
+    collection: 'tavgM_2d_aer_Nx'
+  
+  pbl:
+    variablename: 'PBLH'
+    varlongname: 'Planetary Boundary Layer Height'
+    units: 'km'
+    unitconversion: 0.001
+    collection: 'tavgM_2d_flx_Nx'
+  
+  swgdn:
+    variablename: 'SWGDN'
+    varlongname: 'Downwelling SW Radiation'
+    units: '$\mathregular{W m^{-2}}$'
+    unitconversion: 1
+    collection: 'tavgM_2d_rad_Nx' 
+  
+  soil:
+    variablename: 'GWETROOT'
+    varlongname: 'Surface Soil Wetness'
+    units: '1'
+    unitconversion: 1
+    collection: 'tavgM_2d_lnd_Nx'
+  
+  cloud:
+    variablename: 'CLDTOT'
+    varlongname: 'Cloud Fraction'
+    units: '%'
+    unitconversion: 100
+    collection: 'tavgM_2d_rad_Nx'
+
+  wspd10m:
+    variablename: 'wspd10m'
+    varlongname: '10 m Wind Speed'
+    units: '$\mathregular{m\ s^{-1}}$'
+    unitconversion: 1
+
+  wspd50m:
+    variablename: 'wspd50m'
+    varlongname: '50 m Wind Speed'
+    units: '$\mathregular{m\ s^{-1}}$'
+    unitconversion: 1
+
+  pm25:
+    variablename: 'pm25'
+    varlongname: 'Dry PM2.5'
+    units: '$\mu$g $m^{-3}$'
+    unitconversion: 1000000000
+    fixylim: 0
+
+stream_map:
+  ops:
+    streamname: 'MERRA2_400'
+    model: 'MERRA2_400'
+    outputpath: '/discover/nobackup/dao_ops/m2plots/'
+  retro:
+    streamname: 'MERRA2_all'
+    model: 'MERRA2'
+    outputpath: '/discover/nobackup/projects/gmao/nca/indices/timeseries/'
