@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `CODEOWNERS` file
 - Added AK and HI as regions for time series (N. Thomas 10/31/24)
 - Added PRECTOTCORR as variable for annual cycle plots (N. Thomas 3/21/25)
+- Added code for running EOF analysis for teleconnections (modes instance) (S. Roberts 7/11/25, code written by YK Lim)
 
 ### Changed
 
