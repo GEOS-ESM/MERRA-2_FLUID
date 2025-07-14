@@ -12,12 +12,13 @@ import warnings
 warnings.filterwarnings('ignore')
 import sys
 
-#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, and 4) the ending month of the year to be highlighted. 
-#Example usage: ./latestyear_spaghetti_ncaregions.py t2m ne 2023 12
+#Required command line inputs in order are 1) the variable to be plotted, 2) the region, 3) the year to be highlighted, 4) the ending month of the year to be highlighted, and 5) the stream to be used (NRT ops vs retro). 
+#Example usage: ./latestyear_spaghetti_ncaregions.py t2m ne 2023 12 ops
 yamlkey_var=sys.argv[1]
 yamlkey_reg=sys.argv[2]
 endyear=int(sys.argv[3])
 endmonth=int(sys.argv[4])
+yamlkey_stream=sys.argv[5]
 
 ####INPUT parameters####
 #yamlkey_var='t2m'
@@ -111,7 +112,7 @@ hi:
 conus:
   region: 'CONUS'
   regionshortname: 'conus'
-  regionnumber: 0
+  regionnumber: 10
   landonly: 1
   lat1: 24
   lat2: 50
@@ -206,13 +207,25 @@ cloud:
 
 """
 
+stream_map= """
+ops:
+  streamname: 'MERRA2_400'
+  model: 'MERRA2_400'
+  outputpath: '/discover/nobackup/dao_ops/m2plots/'
+retro:
+  streamname: 'MERRA2_all'
+  model: 'MERRA2'
+  outputpath: '/discover/nobackup/projects/gmao/nca/indices/timeseries/'
+"""
+
+
 ####Import yaml info####
 var = yaml.safe_load(variable_map)
 region = yaml.safe_load(NCA_map)
-
+stream = yaml.safe_load(stream_map)
 
 ####LOAD DATA####
-DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/Y*/M*/MERRA2.' + var[yamlkey_var]['collection'] + '.*.nc4')
+DS = xr.open_mfdataset('/discover/nobackup/projects/gmao/merra2/data/products/' + stream[yamlkey_stream]['streamname'] + '/Y*/M*/' + stream[yamlkey_stream]['model'] + '.' + var[yamlkey_var]['collection'] + '.*.nc4')
 lon1=region[yamlkey_reg]['lon1']
 lon2=region[yamlkey_reg]['lon2']
 lat1=region[yamlkey_reg]['lat1']
@@ -221,20 +234,19 @@ lat2=region[yamlkey_reg]['lat2']
 
 ####Subset for Selected Region####
 subset=DS[var[yamlkey_var]['variablename']].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
+ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
 if region[yamlkey_reg]['landonly']==1:
         m2constants=xr.open_dataset('/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/MERRA2.const_2d_asm_Nx.00000000.nc4')
         land=m2constants.FRLAND+m2constants.FRLANDICE
         land_subset=land.sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2)).squeeze(['time'],drop=True)
         subset=subset.where(land_subset>0.3)
 	
-if region[yamlkey_reg]['regionnumber']>0 & region[yamlkey_reg]['regionnumber']<8:
-        ncaregions=xr.open_dataset('/discover/nobackup/acollow/MERRA2/NCA_regs_MERRA-2.nc')
+if region[yamlkey_reg]['regionnumber']>0 and region[yamlkey_reg]['regionnumber']<10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
         subset=subset.where(nca_subset==region[yamlkey_reg]['regionnumber'])
-elif region[yamlkey_reg]['regionnumber']==8:
+elif region[yamlkey_reg]['regionnumber']==10:
         nca_subset=ncaregions['regs05'].sel(lon=slice(lon1,lon2),lat=slice(lat1,lat2))
-        print(max(nca_subset))
-        subset=subset.where(nca_subset>0 & nca_subset<8)
+        subset=subset.where(nca_subset>0)
 
 ####Get area average####
 weights=np.cos(np.deg2rad(subset.lat))
@@ -269,6 +281,6 @@ plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
 #plt.show()
 
 month = str(endmonth + 100)[1:]
-odir = '/discover/nobackup/dao_ops/m2plots/Y{}/M{}'.format(endyear, month)
+odir = stream[yamlkey_stream]['outputpath'] + 'Y{}/M{}'.format(endyear, month)
 os.makedirs(odir, mode = 0o755, exist_ok=True)
 fig.savefig(odir+'/'+'%s_%s_%4d.png'%(var[yamlkey_var]['variablename'],region[yamlkey_reg]['regionshortname'],endyear))
