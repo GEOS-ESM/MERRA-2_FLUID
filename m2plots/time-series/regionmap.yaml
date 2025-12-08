@@ -1,0 +1,108 @@
+ne:
+  region: 'Northeast United States'
+  regionshortname: 'neus'
+  regionnumber: 1
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+se:
+  region: 'Southeast United States'
+  regionshortname: 'seus'
+  regionnumber: 2
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+mw:
+  region: 'Midwest United States'
+  regionshortname: 'mwus'
+  regionnumber: 3
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+ngp:
+  region: 'Northern Great Plains'
+  regionshortname: 'ngpus'
+  regionnumber: 4
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+sgp:
+  region: 'Southern Great Plains'
+  regionshortname: 'sgpus'
+  regionnumber: 5
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+nw:
+  region: 'Northwest United States'
+  regionshortname: 'nwus'
+  regionnumber: 6
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+sw:
+  region: 'Southwest United States'
+  regionshortname: 'swus'
+  regionnumber: 7
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+ak:
+  region: 'Alaska'
+  regionshortname: 'ak'
+  regionnumber: 8
+  landonly: 1
+  lat1: 50
+  lat2: 80
+  lon1: -180
+  lon2: -120
+hi:
+  region: 'Hawaii'
+  regionshortname: 'hi'
+  regionnumber: 9
+  landonly: 1
+  lat1: 10
+  lat2: 30
+  lon1: -180
+  lon2: -140
+conus:
+  region: 'CONUS'
+  regionshortname: 'conus'
+  regionnumber: 10
+  landonly: 1
+  lat1: 24
+  lat2: 50
+  lon1: -125
+  lon2: -65
+global:
+  region: 'Global'
+  regionshortname: 'global'
+  regionnumber: 0
+  landonly: 0
+  lat1: -90
+  lat2: 90
+  lon1: -180
+  lon2: 179.375
+globalland:
+  region: 'Global Land'
+  regionshortname: 'globalland'
+  regionnumber: 0
+  landonly: 1
+  lat1: -90
+  lat2: 90
+  lon1: -180
+  lon2: 179.375

@@ -6,6 +6,7 @@ import xarray as xr
 import metpy.calc as mpcalc
 from metpy.units import units
 import matplotlib.pyplot as plt
+import matplotlib.image as img
 import yaml
 import warnings
 warnings.filterwarnings('ignore')
@@ -25,118 +26,6 @@ endmonth=int(sys.argv[4])
 #endmonth=12
 ########################
 
-NCA_map = """
-ne:
-  region: 'Northeast United States'
-  regionshortname: 'neus'
-  regionnumber: 1
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-se:
-  region: 'Southeast United States'
-  regionshortname: 'seus'
-  regionnumber: 2
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-mw:
-  region: 'Midwest United States'
-  regionshortname: 'mwus'
-  regionnumber: 3
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-ngp:
-  region: 'Northern Great Plains'
-  regionshortname: 'ngpus'
-  regionnumber: 4
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-sgp:
-  region: 'Southern Great Plains'
-  regionshortname: 'sgpus'
-  regionnumber: 5
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-nw:
-  region: 'Northwest United States'
-  regionshortname: 'nwus'
-  regionnumber: 6
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-sw:
-  region: 'Southwest United States'
-  regionshortname: 'swus'
-  regionnumber: 7
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-ak:
-  region: 'Alaska'
-  regionshortname: 'ak'
-  regionnumber: 8
-  landonly: 1
-  lat1: 50
-  lat2: 80
-  lon1: -180
-  lon2: -120
-hi:
-  region: 'Hawaii'
-  regionshortname: 'hi'
-  regionnumber: 9
-  landonly: 1
-  lat1: 10
-  lat2: 30
-  lon1: -180
-  lon2: -140
-conus:
-  region: 'CONUS'
-  regionshortname: 'conus'
-  regionnumber: 10
-  landonly: 1
-  lat1: 24
-  lat2: 50
-  lon1: -125
-  lon2: -65
-global:
-  region: 'Global'
-  regionshortname: 'global'
-  regionnumber: 0
-  landonly: 0
-  lat1: -90
-  lat2: 90
-  lon1: -180
-  lon2: 179.375
-globalland:
-  region: 'Global Land'
-  regionshortname: 'globalland'
-  regionnumber: 0
-  landonly: 1
-  lat1: -90
-  lat2: 90
-  lon1: -180
-  lon2: 179.375
-
-
-"""
 
 variable_map = """
 wspd10m:
@@ -156,7 +45,8 @@ wspd50m:
 
 ####Import yaml info####
 var = yaml.safe_load(variable_map)
-region = yaml.safe_load(NCA_map)
+with open('regionmap.yaml') as f:
+        region = yaml.safe_load(f)
 
 
 ####LOAD DATA####
@@ -213,6 +103,21 @@ plt.xticks(ticks=np.arange(1,13,1), labels=['Jan','Feb','Mar','Apr','May','Jun',
 plt.xlim([1,12])
 plt.title(region[yamlkey_reg]['region'], fontsize=14, fontweight='bold')
 plt.subplots_adjust(left=0.15, right=0.95, bottom=0.1, top=0.9)
+
+####Add GMAO logo and version number
+image = img.imread('GMAO-logo-blue-no-text.png')
+image_x = 0.04  # Adjust as needed
+image_y = 0.85  # Adjust as needed
+image_width = 0.2  # Adjust as needed
+image_height = 0.2  # Adjust as needed
+ax_image = fig.add_axes([image_x, image_y, image_width, image_height])
+ax_image.imshow(image)
+ax_image.set_xticks([])
+ax_image.set_yticks([])
+with open("VERSION", "r") as f:
+        VERSION = f.read().strip()  # strip will remove leading and trailing whitespace
+plt.text(0.95,1.05,VERSION,transform=ax.transAxes)
+
 #plt.show()
 
 month = str(endmonth + 100)[1:]

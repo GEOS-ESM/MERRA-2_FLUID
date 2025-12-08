@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added PRECTOTCORR as variable for annual cycle plots (N. Thomas 3/21/25)
+- Added Dry PM2.5 as a variable for annual cycle plots (A. Collow 3/28/25)
+- Added GMAO logo and version number to annual cycle plots (A. Collow 3/28/25)
+- Added region.yaml to be used with all versions of annual cylce plots
+
+### Changed
+
+
+### Fixed
+- Fixed bug so that all annual cycle plot variables can be run with latestyear_spaghetti_ncaregions_testylim.py (N. Thomas 3/21/25)
+- Fixed issue with region numbers in annual cycle plot codes (N. Thomas 3/24/25)
+
+### Removed
+
+
+### Deprecated
+
+
+
+## [v1.0.0]
 
 ### Added
 
