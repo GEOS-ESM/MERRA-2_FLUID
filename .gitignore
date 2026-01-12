@@ -5,3 +5,12 @@
 *#
 .#*
 **/CVS/
+#Modes Output dir
+m2stats/teleconnections/Output/*
+!m2stats/teleconnections/Output/.gitkeep
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
